@@ -1,7 +1,6 @@
 {
   "name": "csc307-react-app",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,5 +9,14 @@
   "license": "ISC",
   "dependencies": {
     "create-react-app": "^5.0.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nnayk/csc307-react-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nnayk/csc307-react-app/issues"
+  },
+  "homepage": "https://github.com/nnayk/csc307-react-app#readme",
+  "description": ""
 }
