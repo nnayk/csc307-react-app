@@ -40,8 +40,19 @@ app.get("/", (req, res) => {
 });
 
 app.get("/users", (req, res) => {
-  res.send(USERS);
+  const name = req.query.name;
+  if (name != undefined) {
+    let result = findUserByName(name);
+    result = { users_list: result };
+    res.send(result);
+  } else {
+    res.send(USERS);
+  }
 });
+
+const findUserByName = (name) => {
+  return USERS["users_list"].filter((user) => user["name"] === name);
+};
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
