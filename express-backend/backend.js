@@ -41,17 +41,24 @@ app.get("/", (req, res) => {
 
 app.get("/users", (req, res) => {
   const name = req.query.name;
+  const job = req.query.job;
+  console.log(`name: ${name}, job: ${job}`);
+  let result = USERS;
   if (name != undefined) {
-    let result = findUserByName(name);
-    result = { users_list: result };
-    res.send(result);
-  } else {
-    res.send(USERS);
+    result = findUserByName(name);
   }
+  if (job != undefined) {
+    result = findUserByJob(job);
+  }
+  res.send(result);
 });
 
 const findUserByName = (name) => {
   return USERS["users_list"].filter((user) => user["name"] === name);
+};
+
+const findUserByJob = (job) => {
+  return USERS["users_list"].filter((user) => user["job"] === job);
 };
 
 app.get("/users/:id", (req, res) => {
@@ -79,6 +86,16 @@ app.post("/users", (req, res) => {
 function addUser(user) {
   USERS["users_list"].push(user);
 }
+
+app.delete("/users/:id", (req, res) => {
+  const id = req.params["id"];
+  const index = USERS["users_list"].findIndex((user) => user["id"] === id);
+  if (index === -1) res.status(404).send("Resource not found.");
+  else {
+    USERS["users_list"].splice(index, 1);
+    res.status(200).end();
+  }
+});
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
