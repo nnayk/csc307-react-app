@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 
 const USERS = {
   users_list: [
@@ -33,6 +34,7 @@ const USERS = {
 const app = express();
 const port = 8000;
 
+app.use(cors());
 app.use(express.json());
 
 app.get("/", (req, res) => {
