@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import HttpStatusCode from "http-status-codes";
 
 const USERS = {
   users_list: [
@@ -67,7 +68,7 @@ app.get("/users/:id", (req, res) => {
   const id = req.params["id"]; //or req.params.id
   let result = findUserById(id);
   if (result === undefined || result.length == 0)
-    res.status(404).send("Resource not found.");
+    res.status(HttpStatusCode.NOT_FOUND).send("Resource not found.");
   else {
     result = { users_list: result };
     res.send(result);
@@ -82,7 +83,7 @@ function findUserById(id) {
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
   addUser(userToAdd);
-  res.status(200).end();
+  res.status(HttpStatusCode.CREATED).end();
 });
 
 function addUser(user) {
@@ -92,10 +93,11 @@ function addUser(user) {
 app.delete("/users/:id", (req, res) => {
   const id = req.params["id"];
   const index = USERS["users_list"].findIndex((user) => user["id"] === id);
-  if (index === -1) res.status(404).send("Resource not found.");
+  if (index === -1)
+    res.status(HttpStatusCode.NOT_FOUND).send("Resource not found.");
   else {
     USERS["users_list"].splice(index, 1);
-    res.status(200).end();
+    res.status(HttpStatusCode.OK).end();
   }
 });
 

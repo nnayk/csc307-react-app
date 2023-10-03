@@ -1,6 +1,6 @@
 // src/MyApp.js
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import axios, { HttpStatusCode } from "axios";
 import Table from "./Table";
 import Form from "./Form";
 
@@ -21,7 +21,7 @@ function MyApp() {
   }
   function updateList(person) {
     makePostCall(person).then((result) => {
-      if (result && result.status === 200)
+      if (result && result.status === HttpStatusCode.Created)
         setCharacters([...characters, person]);
     });
   }
