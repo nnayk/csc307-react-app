@@ -82,9 +82,22 @@ function findUserById(id) {
 
 app.post("/users", (req, res) => {
   const userToAdd = req.body;
+  userToAdd["id"] = generateID(5);
+
   addUser(userToAdd);
   res.status(HttpStatusCode.CREATED).end();
 });
+
+function generateID(length) {
+  const OFFSET = 97;
+  const NUM_LETTERS = 26;
+  let randomString = "";
+  for (let i = 0; i < length; i++) {
+    const randomAscii = Math.floor(Math.random() * NUM_LETTERS);
+    randomString += String.fromCharCode(randomAscii + OFFSET);
+  }
+  return randomString;
+}
 
 function addUser(user) {
   USERS["users_list"].push(user);
