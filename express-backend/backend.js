@@ -85,7 +85,7 @@ app.post("/users", (req, res) => {
   userToAdd["id"] = generateID(5);
 
   addUser(userToAdd);
-  res.status(HttpStatusCode.CREATED).end();
+  res.status(HttpStatusCode.CREATED).send(userToAdd);
 });
 
 function generateID(length) {
