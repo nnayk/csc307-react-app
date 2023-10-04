@@ -110,7 +110,7 @@ app.delete("/users/:id", (req, res) => {
     res.status(HttpStatusCode.NOT_FOUND).send("Resource not found.");
   else {
     USERS["users_list"].splice(index, 1);
-    res.status(HttpStatusCode.OK).end();
+    res.status(HttpStatusCode.NO_CONTENT).end();
   }
 });
 
