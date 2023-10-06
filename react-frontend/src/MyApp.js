@@ -24,7 +24,7 @@ function MyApp() {
   function updateList(person) {
     makePostCall(person).then((result) => {
       if (result && result.status === HttpStatusCode.Created)
-        setCharacters([...characters, person]);
+        setCharacters([...characters, result.data]);
     });
   }
 

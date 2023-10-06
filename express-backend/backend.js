@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import HttpStatusCode from "http-status-codes";
 
-const USERS = {
+let users = {
   users_list: [
     {
       id: "xyz789",
@@ -45,8 +45,7 @@ app.get("/", (req, res) => {
 app.get("/users", (req, res) => {
   const name = req.query.name;
   const job = req.query.job;
-  console.log(`name: ${name}, job: ${job}`);
-  let result = USERS;
+  let result = users;
   if (name != undefined) {
     result = findUserByName(name);
   }
@@ -57,11 +56,11 @@ app.get("/users", (req, res) => {
 });
 
 const findUserByName = (name) => {
-  return USERS["users_list"].filter((user) => user["name"] === name);
+  return users["users_list"].filter((user) => user["name"] === name);
 };
 
 const findUserByJob = (job) => {
-  return USERS["users_list"].filter((user) => user["job"] === job);
+  return users["users_list"].filter((user) => user["job"] === job);
 };
 
 app.get("/users/:id", (req, res) => {
@@ -76,7 +75,7 @@ app.get("/users/:id", (req, res) => {
 });
 
 function findUserById(id) {
-  return USERS["users_list"].find((user) => user["id"] === id); // or line below
+  return users["users_list"].find((user) => user["id"] === id); // or line below
   //return users['users_list'].filter( (user) => user['id'] === id);
 }
 
@@ -92,24 +91,31 @@ function generateID(length) {
   const OFFSET = 97;
   const NUM_LETTERS = 26;
   let randomString = "";
-  for (let i = 0; i < length; i++) {
-    const randomAscii = Math.floor(Math.random() * NUM_LETTERS);
-    randomString += String.fromCharCode(randomAscii + OFFSET);
+  let unique = false;
+  while (!unique) {
+    randomString = "";
+    for (let i = 0; i < length; i++) {
+      const randomAscii = Math.floor(Math.random() * NUM_LETTERS);
+      randomString += String.fromCharCode(randomAscii + OFFSET);
+    }
+    if (!users["users_list"].includes(randomString)) {
+      unique = true;
+    }
   }
   return randomString;
 }
 
 function addUser(user) {
-  USERS["users_list"].push(user);
+  users["users_list"].push(user);
 }
 
 app.delete("/users/:id", (req, res) => {
   const id = req.params["id"];
-  const index = USERS["users_list"].findIndex((user) => user["id"] === id);
+  const index = users["users_list"].findIndex((user) => user["id"] === id);
   if (index === -1)
     res.status(HttpStatusCode.NOT_FOUND).send("Resource not found.");
   else {
-    USERS["users_list"].splice(index, 1);
+    users["users_list"].splice(index, 1);
     res.status(HttpStatusCode.NO_CONTENT).end();
   }
 });

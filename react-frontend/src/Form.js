@@ -10,10 +10,8 @@ function Form(props) {
   function handleChange(event) {
     const { name, value } = event.target;
     if (name === "job") {
-      console.log("setting job");
       setPerson({ name: person["name"], job: value });
     } else {
-      console.log("setting name");
       setPerson({ name: value, job: person["job"] });
     }
   }
