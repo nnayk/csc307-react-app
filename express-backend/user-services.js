@@ -12,7 +12,6 @@ mongoose
   .catch((error) => console.log(error));
 
 async function getUsers(name, job) {
-  console.log("users");
   let result;
   if (name === undefined && job === undefined) {
     result = await userModel.find();
@@ -21,8 +20,6 @@ async function getUsers(name, job) {
   } else if (job && !name) {
     result = await findUserByJob(job);
   }
-  console.log(`Found ${result.length} users.`);
-  console.log(`Found ${JSON.stringify(result)}`);
   return result;
 }
 
@@ -39,7 +36,6 @@ async function addUser(user) {
   try {
     const userToAdd = new userModel(user);
     const savedUser = await userToAdd.save();
-    console.log(`Added user ${JSON.stringify(savedUser)}`);
     return savedUser;
   } catch (error) {
     console.log(error);

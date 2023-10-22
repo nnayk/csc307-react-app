@@ -30,7 +30,6 @@ app.get("/users", async (req, res) => {
   } else {
     result = await getUsers();
   }
-  console.log(`Got ${JSON.stringify(result)}`);
   res.send(result);
 });
 
