@@ -43,7 +43,7 @@ function MyApp() {
   async function fetchAll() {
     try {
       const response = await axios.get("http://localhost:8000/users");
-      console.log(`Fetched ${response.data.users_list.length} users}`);
+      console.log(`Fetched ${JSON.stringify(response.data)}`);
       return response.data.users_list;
     } catch (error) {
       //We're not handling errors. Just logging into the console.

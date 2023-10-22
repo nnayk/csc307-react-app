@@ -19,16 +19,18 @@ app.get("/", (req, res) => {
   res.send({ a: "Hello World!" });
 });
 
-app.get("/users", (req, res) => {
+app.get("/users", async (req, res) => {
   const name = req.query.name;
   const job = req.query.job;
   let result = [];
   if (name != undefined) {
-    result = findUserByName(name);
+    result = await findUserByName(name);
+  } else if (job != undefined) {
+    result = await findUserByJob(job);
+  } else {
+    result = await getUsers();
   }
-  if (job != undefined) {
-    result = findUserByJob(job);
-  }
+  // console.log(`Got ${JSON.stringify(result)}`);
   res.send(result);
 });
 

@@ -22,6 +22,7 @@ async function getUsers(name, job) {
     result = await findUserByJob(job);
   }
   console.log(`Found ${result.length} users.`);
+  console.log(`Found ${JSON.stringify(result)}`);
   return result;
 }
 
