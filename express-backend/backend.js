@@ -45,12 +45,12 @@ app.get("/users/:id", (req, res) => {
   }
 });
 
-app.post("/users", (req, res) => {
-  const userToAdd = addUser(req.body);
+app.post("/users", async (req, res) => {
+  const userToAdd = await addUser(req.body);
   res.status(HttpStatusCode.CREATED).send(userToAdd);
 });
 
-app.delete("/users/:id", (req, res) => {
+app.delete("/users/:id", async (req, res) => {
   const id = req.params["id"];
   if (index === -1)
     res.status(HttpStatusCode.NOT_FOUND).send("Resource not found.");

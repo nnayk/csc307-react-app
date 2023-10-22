@@ -39,6 +39,7 @@ async function addUser(user) {
   try {
     const userToAdd = new userModel(user);
     const savedUser = await userToAdd.save();
+    console.log(`Added user ${JSON.stringify(savedUser)}`);
     return savedUser;
   } catch (error) {
     console.log(error);

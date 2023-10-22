@@ -25,7 +25,7 @@ function MyApp() {
   function updateList(person) {
     makePostCall(person).then((result) => {
       if (result && result.status === HttpStatusCode.Created)
-        console.log(`User ${JSON.stringify(result.data)} added successfully`);
+        console.log(`User ${JSON.stringify(result)} added successfully`);
       setCharacters([...characters, result.data]);
       console.log(characters);
     });
