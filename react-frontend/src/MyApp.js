@@ -24,7 +24,9 @@ function MyApp() {
   function updateList(person) {
     makePostCall(person).then((result) => {
       if (result && result.status === HttpStatusCode.Created)
-        setCharacters([...characters, result.data]);
+        console.log(`User ${result.data} added successfully`);
+      setCharacters([...characters, result.data]);
+      console.log(characters);
     });
   }
 
@@ -41,6 +43,7 @@ function MyApp() {
   async function fetchAll() {
     try {
       const response = await axios.get("http://localhost:8000/users");
+      console.log(`Fetched ${response.data.users_list.length} users}`);
       return response.data.users_list;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
