@@ -15,6 +15,7 @@ function TableHeader() {
 }
 
 function TableBody(props) {
+  console.log(`table data = ${JSON.stringify(props.characterData)}`);
   const rows = props.characterData.map((row, index) => {
     return (
       <tr key={index}>

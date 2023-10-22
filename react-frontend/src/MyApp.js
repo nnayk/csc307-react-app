@@ -9,6 +9,7 @@ function MyApp() {
 
   useEffect(() => {
     fetchAll().then((result) => {
+      console.log(`FETCHED ${JSON.stringify(result)}`);
       if (result) setCharacters(result);
     });
   }, []);
@@ -24,7 +25,7 @@ function MyApp() {
   function updateList(person) {
     makePostCall(person).then((result) => {
       if (result && result.status === HttpStatusCode.Created)
-        console.log(`User ${result.data} added successfully`);
+        console.log(`User ${JSON.stringify(result.data)} added successfully`);
       setCharacters([...characters, result.data]);
       console.log(characters);
     });
@@ -44,7 +45,7 @@ function MyApp() {
     try {
       const response = await axios.get("http://localhost:8000/users");
       console.log(`Fetched ${JSON.stringify(response.data)}`);
-      return response.data.users_list;
+      return response.data;
     } catch (error) {
       //We're not handling errors. Just logging into the console.
       console.log(error);
